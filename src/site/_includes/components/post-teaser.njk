@@ -1,0 +1,17 @@
+<article class="rounded overflow-hidden shadow-lg">
+  <div class="px-6 py-4">
+    <header>
+      <h2 class="font-bold text-xl mb-2"><a href="{{ item.url }}">{{ item.name }}</a></h2>
+    </header>
+    {% for location in item.locations %}
+    <address class="py-3">
+      <p>
+        {%- if location.label -%}<div class="text-gray-700 text-xl">{{ location.label | safe }}</div>{%- endif -%}
+        {%- if location.address -%}{{ location.address | safe }}<br/>{%- endif -%}
+        {%- if location.address2 -%}<small class="text-s text-gray-600">{{ location.address2 | safe }}</small><br />{%- endif -%}
+        {%- if location.phone -%}{{ location.phone | tel | safe }}{%- endif -%}
+      </p>
+    </address>
+    {% endfor %}
+  </div>
+</article>

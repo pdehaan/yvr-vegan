@@ -1,0 +1,14 @@
+<header class="flex mb-4">
+  <div class="w-full bg-teal-500 flex justify-between px-4 py-2 mb-10">
+    <h1 class=" text-white font-medium text-2xl"><a href="/">{{ pkg.meta.title }}</a></h1>
+    <nav>
+      <ul class="flex items-row">
+        {% for link in navigation %}
+          <li class="pr-1">
+            <a href="{{ link.url }}" class="nav-tab">{{ link.text }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,62 @@
+---
+layout: base
+pageClass: posts
+---
+
+<section class="flex-1 border-gray-200 border-2 shadow-lg">
+  <header class="pt-4">
+    <h1 class="heading font-serif uppercase">{{ title }}</h1>
+    <p class="text-s mb-4"><a href="{{ site }}" target="_blank" rel="noopener noreferrer">{{ site | hostname }}</a></p>
+
+    {%- if social -%}
+      <section class="restaurant__social">
+      {%- for link in social -%}
+        {% set label = link.label or (link.url | hostname) %}
+        {% link href=(link.url | url), label=label, class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2" %}
+      {%- endfor -%}
+      </section>
+    {%- endif -%}
+  </header>
+
+  {%- if content -%}
+    <div class="markdown text-2xl mb-4">
+      {{ content | section | safe }}
+    </div>
+    <div class="markdown">
+      {{ content | section('remainder') | safe }}
+    </div>
+  {%- endif -%}
+
+  <div class="mt-12 pt-4 text-gray-600">
+    <div class="rounded overflow-hidden">
+    <h2 class="p-4 text-2xl font-serif border-t border-gray-200">Locations</h2>
+    {% for location in locations %}
+      <address class="p-4">
+        {%- if location.label -%}<div class="font-bold text-xl mb-2">{{ location.label | safe }}</div>{%- endif -%}
+        <p class="text-gray-700 text-base">
+          {%- if location.address -%}{{ location.address | safe }}<br />{%- endif -%}
+          {%- if location.address2 -%}<small class="text-s text-gray-600">{{ location.address2 | safe }}</small><br />{%- endif -%}
+          {%- if location.phone -%}{%- tele location.phone | safe -%}<br />{%- endif -%}
+          {%- if location.map -%}{%- gmap src=location.map | safe -%}{%- endif -%}
+        </p>
+      </address>
+      {% if location.links -%}
+      <div class="px-6 py-4">
+        {% for link in location.links %}
+          {% set label = link.label or (link.url | hostname) %}
+          {% link href=(link.url | url), label=label, class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2" %}
+        {% endfor %}
+      </div>
+      {%- endif -%}
+    {% endfor %}
+    </div>
+  </div>
+
+  <footer class="mt-12 pt-4 text-gray-600 border-t border-gray-300">
+    <p>Added: <time value="{{ addedDate | htmlDate }}" class="text-gray-600">{{ addedDate | readableDate }}</time></p>
+  </footer>
+</section>
+
+<aside class="lg:w-1/3 ml-8">
+  {%- include "components/sidebar.njk" -%}
+</aside>

@@ -1,0 +1,5 @@
+<ul>
+  {%- for restaurant in collections.rest -%}
+  <li><a href="{{ restaurant.url | url }}">{{ restaurant.data.title }}</a></li>
+  {%- endfor -%}
+</ul>
